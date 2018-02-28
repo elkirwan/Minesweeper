@@ -116,17 +116,23 @@ public class MSButton
     }
     public boolean isValid(int r, int c)
     {
-      if(r<400 && r>0 && c>0 && c<400 )
+      if(r<NUM_ROWS && r>-1 && c>-1 && c<NUM_COLS )
       return true;
         //your code here
         return false;
     }
     public int countBombs(int row, int col)
     {
-      if(button[row][col-1]
-      
-        int numBombs = 0;
+      int numBombs = 0;
+      if(isValid(r,c-1) && bombs.contains(buttons[r][c-1]))
+      {
+        
+         numBombs = numBombs+1;
+         return numBombs;
+      }
+      return numBombs;
         //your code here
-        return numBombs;
+       
     }
+
 }
