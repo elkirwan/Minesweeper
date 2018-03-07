@@ -1,6 +1,6 @@
 import de.bezier.guido.*;
-public final static int NUM_ROWS = 20;
-public final static int NUM_COLS = 20;//Declare and initialize NUM_ROWS and NUM_COLS = 20
+public final static int NUM_ROWS = 10;
+public final static int NUM_COLS = 10;//Declare and initialize NUM_ROWS and NUM_COLS = 20
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons that are mined
 
@@ -15,8 +15,8 @@ void setup ()
     
     //your code to declare and initialize buttons goes here
    buttons = new MSButton[NUM_ROWS][NUM_COLS];
-    for (int row =0; row<20; row++){
-    for (int col = 0; col<20; col++){
+    for (int row =0; row<NUM_ROWS; row++){
+    for (int col = 0; col<NUM_COLS; col++){
       buttons[row][col] = new MSButton(row,col);
 
 
@@ -92,6 +92,19 @@ public class MSButton
     public void mousePressed () 
     {
         clicked = true;
+       if (keyPressed == true){
+         if (marked == true){
+         marked = false;
+         clicked = false;}
+         else if( marked == false)
+         marked = true;
+       }
+       else if (bombs.contains(this))
+       System.out.println("Sorry, better luck next time!");
+       
+         
+ 
+       
         //your code here
     }
 
@@ -121,15 +134,26 @@ public class MSButton
         //your code here
         return false;
     }
-    public int countBombs(int row, int col)
+    public int countBombs(int r, int c)
     {
       int numBombs = 0;
+  
+      if(isValid(r-1,c-1) && bombs.contains(buttons[r-1][c-1]))
+      numBombs = numBombs+1;
+      if(isValid(r-1,c) && bombs.contains(buttons[r-1][c]))
+      numBombs = numBombs+1;
       if(isValid(r,c-1) && bombs.contains(buttons[r][c-1]))
-      {
-        
-         numBombs = numBombs+1;
-         return numBombs;
-      }
+      numBombs = numBombs+1;
+      if(isValid(r-1,c+1) && bombs.contains(buttons[r-1][c+1]))
+      numBombs = numBombs+1;
+      if(isValid(r+1,c-1) && bombs.contains(buttons[r+1][c-1]))
+      numBombs = numBombs+1;
+      if(isValid(r+1,c) && bombs.contains(buttons[r+1][c]))
+      numBombs = numBombs+1;
+      if(isValid(r,c+1) && bombs.contains(buttons[r][c+1]))
+      numBombs = numBombs+1;
+      if(isValid(r+1,c+1) && bombs.contains(buttons[r+1][c+1]))
+      numBombs = numBombs+1;
       return numBombs;
         //your code here
        
