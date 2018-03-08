@@ -101,6 +101,8 @@ public class MSButton
        }
        else if (bombs.contains(this))
        System.out.println("Sorry, better luck next time!");
+       else if (countBombs(r,c)>0)
+       display
        
          
  
