@@ -53,6 +53,7 @@ public boolean isWon()
 }
 public void displayLosingMessage()
 {
+  text("sorry", 200,200,200,200);
     //your code here
 }
 public void displayWinningMessage()
@@ -92,17 +93,32 @@ public class MSButton
     public void mousePressed () 
     {
         clicked = true;
-       if (keyPressed == true){
+       if (mouseButton == RIGHT){
          if (marked == true){
          marked = false;
          clicked = false;}
          else if( marked == false)
          marked = true;
        }
-       else if (bombs.contains(this))
+       else if (bombs.contains(this)){
        System.out.println("Sorry, better luck next time!");
+       displayLosingMessage();}
        else if (countBombs(r,c)>0)
-       display
+       {
+ 
+     setLabel(""+countBombs(r,c));
+       }
+       else
+       {
+         buttons[r-1][c-1].mousePressed();
+         buttons[r-1][c].mousePressed();
+         buttons[r][c-1].mousePressed();
+         buttons[r-1][c+1].mousePressed();
+         buttons[r+1][c-1].mousePressed();
+         buttons[r+1][c+1].mousePressed();
+         buttons[r+1][c].mousePressed();
+         buttons[r][c+1].mousePressed();
+       }
        
          
  
