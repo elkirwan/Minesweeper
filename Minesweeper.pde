@@ -28,7 +28,7 @@ public void setBombs()
 {
   //int n = (int)Math.random()*NUM_ROWS;
   //int m = (int)Math.random()*NUM_ROWS;
-  for (int i = 0; i<10; i++){
+  for (int i = 0; i<7; i++){
   int n = (int)(Math.random()*NUM_ROWS);
   int m = (int)(Math.random()*NUM_COLS);
   if (!bombs.contains(buttons[n][m]))
@@ -43,22 +43,42 @@ public void setBombs()
 public void draw ()
 {
     background( 0 );
-    if(isWon())
-        displayWinningMessage();
+    if(isWon()){
+        displayWinningMessage();}
 }
 public boolean isWon()
 {
-    //your code here
+  for(int i =0; i< NUM_ROWS; i++){
+  for(int j=0; j<NUM_COLS; j++){
+    if(!buttons[i][j].isClicked() && !bombs.contains(buttons[i][j]))
     return false;
+  }}
+    //your code here
+    return true;
 }
 public void displayLosingMessage()
 {
-  text("sorry", 200,200,200,200);
+ 
+  buttons[4][2].setLabel("S");
+  buttons[4][3].setLabel("o");
+  buttons[4][4].setLabel("r");
+  buttons[4][5].setLabel("r");
+  buttons[4][6].setLabel("y");
     //your code here
 }
 public void displayWinningMessage()
-{
-    //your code here
+
+{buttons[4][1].setLabel("C");
+  buttons[4][2].setLabel("O");
+  buttons[4][3].setLabel("N");
+  buttons[4][4].setLabel("G");
+  buttons[4][5].setLabel("R");
+    buttons[4][6].setLabel("A");
+  buttons[4][7].setLabel("T");
+  buttons[4][8].setLabel("S");
+
+  
+   //your code here
 }
 
 public class MSButton
@@ -93,15 +113,14 @@ public class MSButton
     public void mousePressed () 
     {
         clicked = true;
-       if (mouseButton == RIGHT){
-         if (marked == true){
-         marked = false;
-         clicked = false;}
-         else if( marked == false)
-         marked = true;
+       if (keyPressed ==true){
+        
+         marked = !marked;
+         
+          if( marked == false)
+         clicked= false;
        }
        else if (bombs.contains(this)){
-       System.out.println("Sorry, better luck next time!");
        displayLosingMessage();}
        else if (countBombs(r,c)>0)
        {
@@ -110,13 +129,21 @@ public class MSButton
        }
        else
        {
+         if(isValid(r-1,c-1) && buttons[r-1][c-1].clicked==false)
          buttons[r-1][c-1].mousePressed();
+          if(isValid(r-1,c) && buttons[r-1][c].clicked==false)
          buttons[r-1][c].mousePressed();
+          if(isValid(r,c-1) && buttons[r][c-1].clicked==false)
          buttons[r][c-1].mousePressed();
+          if(isValid(r-1,c+1) && buttons[r-1][c+1].clicked==false)
          buttons[r-1][c+1].mousePressed();
+          if(isValid(r+1,c-1) && buttons[r+1][c-1].clicked==false)
          buttons[r+1][c-1].mousePressed();
+          if(isValid(r+1,c+1) &&buttons[r+1][c+1].clicked==false)
          buttons[r+1][c+1].mousePressed();
+          if(isValid(r+1,c) &&buttons[r+1][c].clicked==false)
          buttons[r+1][c].mousePressed();
+          if(isValid(r,c+1) &&buttons[r][c+1].clicked==false)
          buttons[r][c+1].mousePressed();
        }
        
